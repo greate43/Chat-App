@@ -52,13 +52,13 @@
         app:layout_constraintTop_toBottomOf="@+id/loginPasswordText" />
 
     <Button
-        android:id="@+id/loginSignUp"
+        android:id="@+id/loginCreateNewUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        android:onClick="signUpButtonClicked"
-        android:text="Sign Up"
+        android:onClick="loginCreateUserButtonClicked"
+        android:text="Sign Up Here"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
