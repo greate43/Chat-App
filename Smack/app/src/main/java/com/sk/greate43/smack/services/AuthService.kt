@@ -1,6 +1,7 @@
 package com.sk.greate43.smack.services
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -26,6 +27,8 @@ object AuthService {
         val registerRequest = object : StringRequest(Request.Method.POST, uri, Response.Listener { _ -> complete(true) },
                 Response.ErrorListener { error ->
                     complete(false)
+                    Log.d("ERROR", error.localizedMessage)
+
                 }
 
         ) {
@@ -69,6 +72,8 @@ object AuthService {
         },
                 Response.ErrorListener { error ->
                     isUserLoggedIn = false
+                    Log.d("ERROR", error.localizedMessage)
+
                     complete(false)
                 }) {
             override fun getBodyContentType(): String {
@@ -126,6 +131,7 @@ object AuthService {
 
         },
                 Response.ErrorListener { error ->
+                    Log.d("ERROR", error.localizedMessage)
                     complete(false)
                 }) {
             override fun getBodyContentType(): String {
@@ -138,7 +144,7 @@ object AuthService {
 
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
-                headers.put("Authorization", "Bearer $authToken")
+                headers["Authorization"] = "Bearer $authToken"
                 return headers
             }
         }
