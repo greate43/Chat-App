@@ -51,7 +51,7 @@
         android:layout_height="32dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
-        android:onClick="loginButtonNavClicked"
+        android:onClick="loginBtnNavClicked"
         android:text="login"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
