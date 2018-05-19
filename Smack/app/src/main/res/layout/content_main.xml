@@ -42,7 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@android:color/transparent"
-        android:onClick="sendMessageBuutonClicked"
+        android:onClick="sendMessageBurtonClicked"
         android:scaleType="fitXY"
         android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
