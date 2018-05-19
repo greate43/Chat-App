@@ -1,11 +1,12 @@
 package com.sk.greate43.smack.utilities
 
 const val BASE_URL = " https://greate43chatapp.herokuapp.com/v1/"
-const val SOCKET_URL = " https://greate43chatapp.herokuapp.com/"
+const val SOCKET_URL = "https://greate43chatapp.herokuapp.com/"
 const val URL_REGISTER = "${BASE_URL}account/register/"
 const val URL_LOGIN = "${BASE_URL}account/login/"
 const val URL_CREATE_USER = "${BASE_URL}user/add/";
 const val URL_GET_USER = "${BASE_URL}user/byEmail/";
+const val URL_GET_CHANNELS = "${BASE_URL}channel/";
 
 
 //Broadcast Constants

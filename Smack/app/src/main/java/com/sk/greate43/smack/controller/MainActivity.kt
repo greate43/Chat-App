@@ -1,9 +1,6 @@
 package com.sk.greate43.smack.controller
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
@@ -13,6 +10,8 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Adapter
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import com.sk.greate43.smack.R
 import com.sk.greate43.smack.model.Channel
@@ -29,7 +28,14 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    val socket = IO.socket(SOCKET_URL);
+    val socket = IO.socket(SOCKET_URL)
+    lateinit var channelAdapter: ArrayAdapter<Channel>
+
+    private fun setUpAdaptor() {
+        channelAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, MessageService.channel)
+        channel_list.adapter = channelAdapter
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,19 +46,17 @@ class MainActivity : AppCompatActivity() {
         socket.on("channelCreated", onNewChannel)
 
 
-        
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+        setUpAdaptor()
 
     }
 
     override fun onResume() {
         super.onResume()
         LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver, IntentFilter(BROADCAST_USER_DATA_CHANGE))
-
-
 
 
     }
@@ -81,6 +85,13 @@ class MainActivity : AppCompatActivity() {
                 userImageNavHeader.setBackgroundColor(UserDataService.returnAvatarColor(UserDataService.avatarColor))
 
                 loginButtonNavHeader.text = "Logout"
+
+                MessageService.getChannel(context!!) { complete ->
+                    if (complete) {
+                        channelAdapter.notifyDataSetChanged()
+                    }
+
+                }
             }
         }
 
@@ -134,8 +145,9 @@ class MainActivity : AppCompatActivity() {
             val channelDescription = args[1] as String
             val channelIds = args[2] as String
 
-            val channel = Channel(channelName,channelDescription,channelIds)
+            val channel = Channel(channelName, channelDescription, channelIds)
             MessageService.channel.add(channel)
+            channelAdapter.notifyDataSetChanged()
         })
     }
 
